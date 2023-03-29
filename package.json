@@ -1,0 +1,33 @@
+{
+  "name": "nodejs-ts_template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "build-ts": "tsc",
+    "build": "npm run build-ts && npm run lint",
+    "debug": "npm run build-ts && npm run watch:debug",
+    "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+    "test": "jest",
+    "serve-debug": "nodemon --inspect -r dotenv/config dist/server.js",
+    "serve": "node -r dotenv/config dist/server.js",
+    "serve-aws": "node -r dotenv/config -r ./dist/tracing.js dist/server.js",
+    "start": "npm run serve",
+    "watch-node": "nodemon -r dotenv/config dist/server.js",
+    "watch-ts": "tsc -w",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
+    "watch:debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\""
+  },
+  "author": "yash",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "nodemon": "^2.0.22",
+    "rimraf": "^4.4.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "concurrently": "^8.0.1"
+  }
+}
